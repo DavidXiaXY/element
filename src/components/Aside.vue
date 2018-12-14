@@ -21,16 +21,53 @@
 					title: 'basic',
 					icon: 'el-icon-location',
 					sub: [{
-						title: 'layout布局',
+						title: 'layout 布局',
 						path: '/layout'
 					}, {
 						title: 'Container 容器',
 						path: '/container'
+					}, {
+						title: 'Icon 图标',
+						path: '/icon'
+					}, {
+						title: 'Button 按钮',
+						path: '/button'
 					}]
 				}, {
 					title: 'form',
 					icon: 'el-icon-location',
-					sub: []
+					sub: [{
+						title: 'Radio 单选',
+						path: '/radio'
+					},{
+						title: 'CheckBox 多选',
+						path: '/checkbox'
+					},{
+						title: 'Input 输入框',
+						path: '/input'
+					},{
+						title: 'Number 计数器',
+						path: '/number'
+					},{
+						title: 'Select 选择器',
+						path: '/select'
+					},{
+						title: 'Cascader 级联',
+						path: '/cascader'
+					},{
+						title: 'Switch 开关',
+						path: '/switch'
+					}]
+				}, {
+					title: 'Data',
+					icon: 'el-icon-location',
+					sub: [{
+						title: 'Score 学生成绩',
+						path: '/score'
+					},{
+						title: '请假批准',
+						path: '/approval'
+					}]
 				}, {
 					title: 'Data',
 					icon: 'el-icon-location',
