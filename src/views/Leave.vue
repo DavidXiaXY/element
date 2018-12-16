@@ -44,7 +44,7 @@
 		</el-input>
 
 		<el-row style="text-align: center;margin-top: 30px;">
-			<el-button type="success" style="margin-right: 100px;" @click="dialogVisible = true">提 交</el-button>
+			<el-button type="success" style="margin-right: 100px;" @click="openFullScreen" :plain="true" v-loading.fullscreen.lock="fullscreenLoading">提 交</el-button>
 			<el-button type="primary" @click="openFullScreen2">重 置</el-button>
 		</el-row>
 
@@ -98,7 +98,7 @@
 				endTime: '',
 				textarea: '',
 				input10: '',
-				dialogVisible: false,
+				fullscreenLoading: false
 			}
 		},
 		methods: {
@@ -108,18 +108,21 @@
 						done();
 					})
 					.catch(_ => {});
-			}
-		},
-		openFullScreen2() {
-			const loading = this.$loading({
-				lock: true,
-				text: 'Loading',
-				spinner: 'el-icon-loading',
-				background: 'rgba(0, 0, 0, 0.7)'
-			});
-			setTimeout(() => {
-				loading.close();
-			}, 2000);
+			},
+
+			openFullScreen() {
+				this.fullscreenLoading = true;
+				setTimeout(() => {
+					this.fullscreenLoading = false;
+				}, 2000);
+				const h = this.$createElement;
+
+				this.$message({
+					message: '提交成功',
+					type: 'success'
+				});
+			},
+
 		}
 	}
 </script>
