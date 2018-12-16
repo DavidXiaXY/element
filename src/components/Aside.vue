@@ -39,22 +39,22 @@
 					sub: [{
 						title: 'Radio 单选',
 						path: '/radio'
-					},{
+					}, {
 						title: 'CheckBox 多选',
 						path: '/checkbox'
-					},{
+					}, {
 						title: 'Input 输入框',
 						path: '/input'
-					},{
+					}, {
 						title: 'Number 计数器',
 						path: '/number'
-					},{
+					}, {
 						title: 'Select 选择器',
 						path: '/select'
-					},{
+					}, {
 						title: 'Cascader 级联',
 						path: '/cascader'
-					},{
+					}, {
 						title: 'Switch 开关',
 						path: '/switch'
 					}]
@@ -64,7 +64,10 @@
 					sub: [{
 						title: 'Score 学生成绩',
 						path: '/score'
-					},{
+					}, {
+						title: '请假申请',
+						path: '/Leave'
+					}, {
 						title: '请假批准',
 						path: '/approval'
 					}]
