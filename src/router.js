@@ -13,6 +13,7 @@ import Select from './views/Select.vue'
 import Cascader from './views/Cascader.vue'
 import Score from './views/Score.vue'
 import Leave from './views/Leave.vue'
+import Leave2 from './views/Leave2.vue'
 import Approval from './views/Approval.vue'
 
 Vue.use(Router)
@@ -72,6 +73,10 @@ export default new Router({
 		path:'/Leave',
 		name:'Leave',
 		component:Leave
+	},{
+		path:'/Leave2',
+		name:'Leave2',
+		component:Leave2
 	},{
 		path:'/approval',
 		name:'approval',

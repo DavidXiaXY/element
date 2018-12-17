@@ -66,7 +66,10 @@
 						path: '/score'
 					}, {
 						title: '请假申请',
-						path: '/Leave'
+						path: '/Leave',
+					}, {
+						title: '请假申请提交',
+						path: '/Leave2'
 					}, {
 						title: '请假批准',
 						path: '/approval'
