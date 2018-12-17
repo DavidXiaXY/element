@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			
+			
+			let arr = [1,2,3,4,5,6,7,8,9,0];
+			
+			/**
+			 * pop  push  shift  unshift  splice ......
+			 * 
+			 * **/
+			
+			// 冒泡排序
+			for(let i=0;i<arr.length;i++){
+				for(let j=0;j<arr.length-i-1;j++){
+					if(arr[j]>arr[j+1]){
+						let tmp = arr[j];
+						arr[j] = arr[j+1];
+						arr[j+1] = tmp;
+					}
+				}
+				console.log("第"+(i+1)+"轮:"+arr);
+			}
+			console.log(arr);
+			
+			// 排序
+			let arr3 = arr.sort((a,b)=>{
+				// 随机排序
+				return Math.random() - 0.5;
+				// 从大到小
+				return b-a;
+				// 从小到大
+				return a-b;
+			});
+			console.log(arr3);
+			
+			// 过滤
+			let arr2 = arr.filter((item,index)=>{
+				console.log('item:'+item+",index:"+index);
+				// true:保留   false:舍掉
+				return item%2==0;
+			});
+			console.log(arr2);
+			
+			// 汇总
+			let sum = arr.reduce((tmp,item,index)=>{
+				/**
+				 * tmp：第一次的时候是数组第一个值，后面就是return
+				 * item: 数组中从第二个开始后所有的数
+				 * index: 从第二个开始的下标
+				 * */
+				console.log('tmp:'+tmp+",item:"+item+",index:"+index);
+				return tmp+=item;
+			})
+			console.log(sum);
+			
+			// 遍历操作
+			arr.forEach((item,index)=>{
+				console.log(item,index);
+			});
+			
+			
+			
+		</script>
+	</body>
+</html>

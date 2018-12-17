@@ -1,132 +1,166 @@
 <template>
 	<el-card class="box-card">
 		<div slot="header" class="clearfix">
-			<span>请假申请</span>
+			<span>请假</span>
 			<el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
 		</div>
+		<el-form :model="leave" :rules="rules" ref="leave" label-width="100px" class="demo-ruleForm">
 
-		<p>请假人：</p>
-		<el-input v-model="input" placeholder="请输入内容"></el-input>
+			<el-row :gutter="10">
+				<el-col :span="12">
+					<el-form-item label="请假人" prop="name">
+						<el-input v-model="leave.name"></el-input>
+					</el-form-item>
+				</el-col>
+				<el-col :span="12">
 
-		<p>部门：</p>
-		<el-select v-model="value" placeholder="请选择">
-			<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-			</el-option>
-		</el-select>
+					<el-form-item label="事由" prop="region">
+						<el-select v-model="leave.region" placeholder="请选择事由" style="width:100%">
+							<el-option label="事假" value="事假"></el-option>
+							<el-option label="病假" value="病假"></el-option>
+							<el-option label="婚假" value="婚假"></el-option>
+							<el-option label="产假" value="产假"></el-option>
+							<el-option label="丧假" value="丧假"></el-option>
+							<el-option label="年假" value="年假"></el-option>
+							<el-option label="其他" value="其他"></el-option>
+						</el-select>
+					</el-form-item>
+				</el-col>
 
-		<p>请假原因：</p>
-		<el-select v-model="value6" placeholder="请选择">
-			<el-option v-for="item in cities" :key="item.value" :label="item.label" :value="item.value">
-				<span style="float: left">{{ item.label }}</span>
-				<span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
-			</el-option>
-		</el-select>
+			</el-row>
 
-		<p>请假时间：</p>
-		<el-time-select placeholder="起始时间" v-model="startTime" :picker-options="{
-      start: '08:30',
-      step: '00:15',
-      end: '18:30'
-    }">
-		</el-time-select>
-		<el-time-select placeholder="结束时间" v-model="endTime" style="margin-left: 30px;" :picker-options="{
-      start: '08:30',
-      step: '00:15',
-      end: '18:30',
-      minTime: startTime
-    }">
-		</el-time-select>
-		<p>描述：</p>
-		<el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="textarea">
-		</el-input>
-		<p>紧急电话：</p>
-		<el-input placeholder="请输入内容" v-model="input10" clearable>
-		</el-input>
+			<el-row :gutter="10">
+				<el-col :span="12">
 
-		<el-row style="text-align: center;margin-top: 30px;">
-			<el-button type="success" style="margin-right: 100px;" @click="openFullScreen" :plain="true" v-loading.fullscreen.lock="fullscreenLoading">提 交</el-button>
-			<el-button type="primary" @click="openFullScreen2">重 置</el-button>
-		</el-row>
+					<el-form-item label="部门" prop="partment">
+						<el-select v-model="leave.partment" placeholder="请选择部门" style="width:100%">
+							<el-option label="技术部" value="技术部"></el-option>
+							<el-option label="财务部" value="财务部"></el-option>
+							<el-option label="人事部" value="人事部"></el-option>
+							<el-option label="后勤" value="后勤"></el-option>
+						</el-select>
+					</el-form-item>
+				</el-col>
+				<el-col :span="12">
 
-		<el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
-			<span>提交成功</span>
-			<span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-  </span>
-		</el-dialog>
+					<el-form-item label="时间">
+						<el-date-picker v-model="time" style="width:100%" value-format="timestamp" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" align="right">
+						</el-date-picker>
+					</el-form-item>
+				</el-col>
 
+			</el-row>
+
+			<el-row :gutter="10">
+				<el-col :span="12">
+					<el-form-item label="情急联系人" prop="other">
+						<el-input v-model="leave.other"></el-input>
+					</el-form-item>
+				</el-col>
+				<el-col :span="12">
+					<el-form-item label="情急电话" prop="other_phone">
+						<el-input v-model="leave.other_phone"></el-input>
+					</el-form-item>
+				</el-col>
+
+			</el-row>
+			<el-form-item label="说明" prop="leave_desc">
+				<el-input type="textarea" v-model="leave.leave_desc" placeholder="请备注请假说明"></el-input>
+			</el-form-item>
+
+			<el-form-item>
+				<el-button type="primary" @click="submitForm('leave')" :loading="loading">确认</el-button>
+				<el-button @click="resetForm('leave')">重置</el-button>
+			</el-form-item>
+		</el-form>
 	</el-card>
 </template>
 
 <script>
+	import axios from "axios";
+	import qs from "qs";
 	export default {
 		data() {
 			return {
-				options: [{
-					value: '选项1',
-					label: '财务'
-				}, {
-					value: '选项2',
-					label: '人力资源'
-				}, {
-					value: '选项3',
-					label: '运营中心'
-				}, {
-					value: '选项4',
-					label: '销售部'
-				}, {
-					value: '选项5',
-					label: '市场部'
-				}],
-				value: '',
-				cities: [{
-					value: 'leave',
-					label: '事假'
-				}, {
-					value: 'sick leave',
-					label: '病假'
-				}, {
-					value: 'business trip',
-					label: '出差'
-				}, {
-					value: 'go out',
-					label: '外出'
-				}],
-				value6: '',
-				startTime: '',
-				endTime: '',
-				textarea: '',
-				input10: '',
-				fullscreenLoading: false
-			}
+				time: [],
+				leave: {
+					name: '',
+					partment: '',
+					region: '',
+					start: 0,
+					end: 0,
+					leave_desc: '',
+					other: '',
+					other_phone: ''
+				},
+				loading:false,
+				rules: {
+					name: [{
+							required: true,
+							message: '请输入请假人',
+							trigger: 'blur'
+						},
+						{
+							min: 2,
+							max: 10,
+							message: '长度在 2 到 10 个字符',
+							trigger: 'blur'
+						}
+					],
+				}
+			};
 		},
 		methods: {
-			handleClose(done) {
-				this.$confirm('确认关闭？')
-					.then(_ => {
-						done();
-					})
-					.catch(_ => {});
-			},
 
-			openFullScreen() {
-				this.fullscreenLoading = true;
-				setTimeout(() => {
-					this.fullscreenLoading = false;
-				}, 2000);
-				const h = this.$createElement;
-
-				this.$message({
-					message: '提交成功',
-					type: 'success'
+			addLeave() {
+				this.loading = true;
+				let url = "http://192.168.255.30:8888/index.php/Index/Index/addLeave";
+				this.leave.start = this.time[0] / 1000;
+				this.leave.end = this.time[1] / 1000;
+				axios.post(url, qs.stringify({
+					data: this.leave
+				})).then(res => {
+					if(res.data.code > 0) {
+						this.$notify({
+							title: '成功',
+							message: res.data.msg,
+							type: 'success'
+						});
+					} else {
+						this.$notify({
+							title: '失败',
+							message: res.data.msg,
+							type: 'error'
+						});
+					}
+					this.loading = false;
+				}).catch(err => {
+					this.$notify({
+						title: '错误',
+						message: '服务器错误！',
+						type: 'error'
+					});
+					this.loading = false;
 				});
 			},
-
+			submitForm(formName) {
+				this.$refs[formName].validate((valid) => {
+					if(valid) {
+						console.log("通过验证");
+						this.addLeave();
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
+			},
+			resetForm(formName) {
+				this.$refs[formName].resetFields();
+			}
 		}
 	}
 </script>
 
 <style>
-	.box-card p {}
+
 </style>

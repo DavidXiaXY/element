@@ -7,6 +7,7 @@
 		<el-container>
 			<el-header>
 				<admin-header></admin-header>
+				<admin-tab></admin-tab>
 			</el-header>
 			<el-main>
 				<router-view/>
@@ -19,6 +20,7 @@
 <script type="text/javascript">
 	import AdminAside from "@/components/Aside"
 	import AdminHeader from "@/components/Header"
+	import AdminTab from "@/components/Tabs"
 	export default {
 		data() {
 			return {};
@@ -26,7 +28,8 @@
 		methods: {},
 		components: {
 			AdminAside,
-			AdminHeader
+			AdminHeader,
+			AdminTab
 		}
 	}
 </script>
@@ -40,9 +43,12 @@
 		background-color: #f2f2f2;
 	}
 	.el-header{
+		height:100px!important;
 		background-color: #FFFFFF;
 	}
-	
+	.el-header .el-row {
+    margin-bottom: 0px;
+}
 	.el-aside{
 		background-color: #20222A;
 	}
