@@ -10,7 +10,9 @@
 				<admin-tab></admin-tab>
 			</el-header>
 			<el-main>
-				<router-view/>
+				<keep-alive>
+					<router-view/>
+				</keep-alive>
 			</el-main>
 			<el-footer>©2018-2020  非凡学院</el-footer>
 		</el-container>

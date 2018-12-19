@@ -7,7 +7,7 @@
 
 		<el-col :span="12">
 
-			<el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="select">
+			<el-menu :default-active="activeIndex" class="el-menu-demo hidden-md-and-down" mode="horizontal" @select="select">
 				<el-menu-item index="1">处理中心</el-menu-item>
 				<el-submenu index="2">
 					<template slot="title">我的工作台</template>
@@ -31,6 +31,10 @@
 </template>
 
 <script>
+	
+	
+	import 'element-ui/lib/theme-chalk/display.css';
+	
 	export default {
 		data() {
 			return {
